@@ -1,0 +1,60 @@
+############### BUILD WHEELS #################
+FROM python:3-slim AS builder-wheels
+
+WORKDIR /wheels
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# upgrade pip
+RUN python -m pip --trusted-host pypi.python.org install --upgrade pip
+
+COPY ./requirements.txt ./requirements.txt
+RUN pip wheel --trusted-host pypi.python.org -r requirements.txt
+RUN pip wheel --trusted-host pypi.python.org gunicorn
+
+
+############### BUILD STAGE ##################
+FROM python:3-slim AS builder
+
+WORKDIR /app
+# copy application
+COPY . .
+# copy dependency wheels
+COPY --from=builder-wheels /wheels ./wheels
+
+############### FINAL STAGE ##################
+FROM python:3-slim-buster
+
+# create the app user
+RUN addgroup --system app && adduser --system --group app
+
+WORKDIR /app
+
+COPY --from=builder /app .
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV PORT 8080
+
+# upgrade pip
+RUN python -m pip --trusted-host pypi.python.org install --upgrade pip
+RUN pip install gunicorn
+# install dependencies and remove wheels folder
+RUN pip install -U pip \
+       && pip install --no-index -r ./wheels/requirements.txt -f /app/wheels \
+       && rm -rf ./wheels \
+       && rm -rf /root/.cache/pip/*   
+
+# chown all the files to the app user
+RUN chown -R app:app .
+
+# change to the app user
+USER app
+
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 app:app
