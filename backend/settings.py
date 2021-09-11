@@ -33,7 +33,6 @@ DOMAIN = {
                         'meta': {
                             'verbose_name': 'Week',
                             'hint': 'ISO Week Number',
-                            'disabled': True
                         }
                     },
                 }
@@ -157,7 +156,6 @@ DOMAIN = {
                         'meta': {
                             'verbose_name': 'Week',
                             'hint': 'ISO Week Number',
-                            'disabled': True
                         }
                     },
                 }
@@ -294,7 +292,6 @@ DOMAIN = {
                         'meta': {
                             'verbose_name': 'Week',
                             'hint': 'ISO Week Number',
-                            'disabled': True
                         }
                     },
                 }
@@ -550,7 +547,6 @@ DOMAIN = {
                         'meta': {
                             'verbose_name': 'Week',
                             'hint': 'ISO Week Number',
-                            'disabled': True
                         }
                     },
                 }
