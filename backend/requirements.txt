@@ -1,2 +1,4 @@
 Eve
 dnspython
+pandas
+openpyxl
