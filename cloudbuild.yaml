@@ -1,10 +1,10 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--tag', 'gcr.io/insys-png-ext1/spb-mtdashboard-backend', '-f', 'Dockerfile.prod', '.']
+    args: ['build', '--tag', 'gcr.io/mtdashboard-backend', '-f', 'Dockerfile.prod', '.']
     dir: 'backend'
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--tag', 'gcr.io/insys-png-ext1/spb-mtdashboard-frontend', '-f', 'Dockerfile.prod', '.']
+    args: ['build', '--tag', 'gcr.io/mtdashboard-frontend', '-f', 'Dockerfile.prod', '.']
     dir: 'frontend'
 images:
-  - 'gcr.io/insys-png-ext1/spb-mtdashboard-backend'
-  - 'gcr.io/insys-png-ext1/spb-mtdashboard-frontend' 
+  - 'gcr.io/dashboard-backend'
+  - 'gcr.io/mtdashboard-frontend' 
