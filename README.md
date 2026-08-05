@@ -1,10 +1,10 @@
 # MT Dashboard
 
-Web-based Management Team Dashboard showing useful business insights from stored datasets. Built with Vue.js and Vuetify, it provides a unified interface for monitoring and managing operations across multiple departments of SP Brewery in Lae.
+Web-based Management Team Dashboard showing useful business insights from stored datasets. Built with Vue.js and Vuetify, it provides a unified interface for monitoring and managing operations across multiple departments.
 
 ## Features
 
-- **Multi‑Module Navigation** – Switch between Safety, Packaging, Brewing, Quality, Logistics, and Utilities sections via a persistent navigation drawer.
+- **Multi‑Module Navigation** – Switch between sections via a persistent navigation drawer.
 - **Data Import / Export** – Built‑in dialogs to import and export datasets for each module.
 - **Real‑Time Notifications** – Toggleable notification panel to view system alerts.
 - **Loading Spinner** – Visual feedback while API data is loading.
